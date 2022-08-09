@@ -21,12 +21,12 @@ class ListInterface {
       position: json['position'],
   );
 
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toMap(bool value) {
     return {
       'id': id,
       'title': title,
       'content': content,
-      'checkBox': checkBox.toString(),
+      'checkBox': value.toString(),
       'position' : position,
     };
   }

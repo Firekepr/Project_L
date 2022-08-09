@@ -45,6 +45,15 @@ class ListDataBase {
 
   Future<int> add(ListInterface items) async {
     Database db = await instance.database;
-    return await db.insert('list', items.toMap());
+    return await db.insert(
+        'list',
+        items.toMap(false),
+    );
+  }
+
+  Future<int> updateCheckBox(ListInterface list, bool value) async {
+    Database db = await instance.database;
+    return db.update('ListItem', list.toMap(value),
+        where: 'id = ?', whereArgs: [list.id]);
   }
 }
