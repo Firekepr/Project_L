@@ -35,9 +35,6 @@ class _ListBottomSheetState extends State<ListBottomSheet> {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(40),
           color: Colors.black38,
-          // boxShadow: const [
-          //   BoxShadow(color: Colors.green, spreadRadius: 3),
-          // ],
         ),
         child: Padding(
           padding: const EdgeInsets.only(left: 8.0),

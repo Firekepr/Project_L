@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:path_provider/path_provider.dart';
 import 'package:project_l/interface/List-interface.dart';
+import 'package:reactive_forms/reactive_forms.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
@@ -53,7 +54,26 @@ class ListDataBase {
 
   Future<int> updateCheckBox(ListInterface list, bool value) async {
     Database db = await instance.database;
-    return db.update('ListItem', list.toMap(value),
+    return db.update('list', list.toMap(value),
         where: 'id = ?', whereArgs: [list.id]);
+  }
+
+  Future<int> updateSQL([FormGroup? form, List<dynamic>? parameters]) async {
+    String sql = ( ''' update list set
+        title = '${form?.control('title').value}' ,
+        content = '${form?.control('content').value}' ,
+        checkbox = '${form?.control('checkbox').value.toString()}'
+        where id = '${form?.control('id').value}' 
+        ''');
+
+    Database db = await database;
+    return await db.rawUpdate(sql);
+  }
+
+  Future<int> onDelete(int? id) async {
+    Database db = await database;
+    String sql = ''' delete from list where id = '$id' ''';
+
+    return await db.rawDelete(sql);
   }
 }
