@@ -4,10 +4,10 @@ import 'package:project_l/utils/project-form-button.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
 class ItemInfo extends StatefulWidget {
-  FormGroup form;
-  Function editItem;
+  final FormGroup form;
+  final Function editItem;
 
-  ItemInfo({
+  const ItemInfo({
     Key? key,
     required this.form,
     required this.editItem,
@@ -36,26 +36,49 @@ class _ItemInfoState extends State<ItemInfo> {
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(
+                mainAxisSize: MainAxisSize.min,
                 children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      ClipOval(
+                        child: Container(
+                          color: Colors.red,
+                          child: InkWell(
+                              child: const Icon(
+                                Icons.clear_outlined,
+                                color: Colors.white,
+                              ),
+                            onTap: () => Navigator.pop(context),
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
                   const Text(
                     'Editar',
-                    style: TextStyle(fontSize: 18),
+                    style: TextStyle(
+                        fontSize: 18,
+                        color: Colors.white,
+                    ),
                   ),
                   const ProjectFormField(
                     formControlName: 'title',
                     label: 'Principal',
+                    labelColor: Colors.white,
                     obscureText: false,
                     shape: 40,
                   ),
                   const ProjectFormField(
                     formControlName: 'content',
                     label: 'Conteúdo',
+                    labelColor: Colors.white,
                     obscureText: false,
                     shape: 40,
                   ),
                   TextButton(
                     onPressed: () async {
-                      widget.editItem(widget.form, context);
+                      widget.editItem();
                     },
                     child: const Text('Salvar'),
                   )

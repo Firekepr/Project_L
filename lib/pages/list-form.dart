@@ -23,8 +23,8 @@ class ListBlock extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(
-          left: 8.0,
-          right: 8.0,
+        left: 8.0,
+        right: 8.0,
       ),
       child: Card(
         elevation: 0,
@@ -35,7 +35,11 @@ class ListBlock extends StatelessWidget {
                 shape: const CircleBorder(),
                 value: item.checkBox,
                 activeColor: ProjectStyles.checkBoxColor,
-                hoverColor: Colors.deepPurple,
+                side: MaterialStateBorderSide.resolveWith(
+                    (states) => const BorderSide(
+                          width: 1.0,
+                          color: Colors.white,
+                        )),
                 onChanged: (value) async {
                   updateCheckBox(value);
                 }),
@@ -44,12 +48,15 @@ class ListBlock extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(item.title,
-                        style: ProjectStyles.checkedItem(item.checkBox)),
+                    Text(
+                      item.title,
+                      style: ProjectStyles.checkedItemTitle(item.checkBox),
+                    ),
                     item.content!.isNotEmpty
                         ? Text(
                             item.content!,
-                            style: ProjectStyles.checkedItem(item.checkBox),
+                            style:
+                                ProjectStyles.checkedItemContent(item.checkBox),
                           )
                         : Container(),
                   ],

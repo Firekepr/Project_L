@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:project_l/database/list.database.dart';
 import 'package:project_l/interface/List-interface.dart';
 import 'package:project_l/pages/list-app-bar.dart';
@@ -24,7 +25,7 @@ class _ListScreenState extends State<ListScreen> {
     'id': FormControl<int>(),
     'title': FormControl<String>(),
     'content': FormControl<String>(),
-    'checkbox': FormControl<String>(),
+    'checkBox': FormControl<String>(),
   });
 
   @override
@@ -33,9 +34,7 @@ class _ListScreenState extends State<ListScreen> {
       appBar: const ListAppBar(
         preferredSize: Size.fromHeight(60),
       ),
-
       backgroundColor: ProjectStyles.scaffoldColor,
-
       body: FutureBuilder<List<ListInterface>>(
           future: ListDataBase.instance.getListValues(),
           builder: (BuildContext context, AsyncSnapshot<List<ListInterface>> snapshot) {
@@ -44,10 +43,11 @@ class _ListScreenState extends State<ListScreen> {
                 child: Text('Loading...'),
               );
             }
+
             return snapshot.data!.isNotEmpty
                 ? ListView.builder(
                     itemCount: snapshot.data!.length,
-                    physics: const NeverScrollableScrollPhysics(),
+                    padding: const EdgeInsets.only(top: 8.0, bottom: 4.0),
                     itemBuilder: (BuildContext context, int index) {
                       return ListBlock(
                         item: snapshot.data![index],
@@ -67,12 +67,21 @@ class _ListScreenState extends State<ListScreen> {
   }
 
   _viewMoreInformation(ListInterface list) {
-
     setState(() {
       _form.patchValue(list.toMap(list.checkBox));
     });
 
-    return showModalBottomSheet(
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return ItemInfo(
+            editItem: () => _editItem(_form, context),
+            form: _form,
+          );
+        });
+    return showBarModalBottomSheet(
+        bounce: true,
+        expand: true,
         context: context,
         builder: (BuildContext context) {
           return ItemInfo(

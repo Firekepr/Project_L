@@ -2,10 +2,16 @@ import 'package:flutter/material.dart';
 
 class ProjectStyles {
 
-  static TextStyle checkedItem(bool isCheck) {
+  static TextStyle checkedItemTitle(bool isCheck) {
     return isCheck
-        ? TextStyle(color: Colors.white24)
-        : TextStyle(color: Colors.white);
+        ? const TextStyle(color: Colors.white24, fontSize: 16.0)
+        : const TextStyle(color: Colors.blue, fontSize: 16.0);
+  }
+
+  static TextStyle checkedItemContent(bool isCheck) {
+    return isCheck
+        ? const TextStyle(color: Colors.white24, fontSize: 14.0)
+        : const TextStyle(color: Colors.white, fontSize: 14.0);
   }
 
   static Color checkBoxColor = Colors.green;

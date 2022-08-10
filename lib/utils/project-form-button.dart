@@ -12,6 +12,7 @@ class ProjectFormField extends StatefulWidget {
   final TextInputType? keyBoardType;
   final double? shape;
   final List<TextInputFormatter>? inputFormatters;
+  final Color? labelColor;
 
   const ProjectFormField({
     Key? key,
@@ -24,6 +25,7 @@ class ProjectFormField extends StatefulWidget {
     this.insideLabel,
     this.inputFormatters,
     this.shape,
+    this.labelColor,
   }) : super(key: key);
 
   @override
@@ -52,15 +54,15 @@ class _ProjectFormFieldState extends State<ProjectFormField> {
       children: [
         widget.insideLabel == false || widget.insideLabel == null
             ? Padding(
-          padding: const EdgeInsets.all(2.0),
-          child: Text(
-            widget.label,
-            style: const TextStyle(
-                color: Color.fromRGBO(0, 0, 0, 0.50),
-                fontWeight: FontWeight.bold),
-            textAlign: TextAlign.start,
-          ),
-        )
+                padding: const EdgeInsets.all(2.0),
+                child: Text(
+                  widget.label,
+                  style: TextStyle(
+                      color: widget.labelColor ?? const Color.fromRGBO(0, 0, 0, 0.50),
+                      fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.start,
+                ),
+              )
             : Container(),
         Card(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(widget.shape ?? 0)),
@@ -74,33 +76,34 @@ class _ProjectFormFieldState extends State<ProjectFormField> {
                   color: Colors.grey[800],
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+                  padding: const EdgeInsets.fromLTRB(16, 0, 5, 0),
                   child: ReactiveTextField(
                     keyboardType: widget.keyBoardType,
                     formControlName: widget.formControlName,
                     validationMessages: (control) => {
                       ValidationMessage.required: 'Required',
                       ValidationMessage.email: '',
-                      ValidationMessage.maxLength:  '',
+                      ValidationMessage.maxLength: '',
                     },
                     inputFormatters: widget.inputFormatters,
                     style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
+                      color: Colors.white,
+                      fontSize: 18,
                     ),
                     obscureText: _passwordVisibility,
                     decoration: InputDecoration(
-                      hintText: widget.insideLabel == true ? widget.label : null,
+                      hintText:
+                          widget.insideLabel == true ? widget.label : null,
                       border: InputBorder.none,
                       suffixIcon: !widget.obscureText
                           ? widget.suffixIcon
                           : IconButton(
-                        color: const Color.fromRGBO(0, 0, 0, 1),
-                        icon: Icon(_passwordVisibility
-                            ? Icons.visibility
-                            : Icons.visibility_off),
-                        onPressed: () => togglePasswordVisibility(),
-                      ),
+                              color: const Color.fromRGBO(0, 0, 0, 1),
+                              icon: Icon(_passwordVisibility
+                                  ? Icons.visibility
+                                  : Icons.visibility_off),
+                              onPressed: () => togglePasswordVisibility(),
+                            ),
                     ),
                   ),
                 ),

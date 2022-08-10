@@ -62,7 +62,7 @@ class ListDataBase {
     String sql = ( ''' update list set
         title = '${form?.control('title').value}' ,
         content = '${form?.control('content').value}' ,
-        checkbox = '${form?.control('checkbox').value.toString()}'
+        checkBox = '${form?.control('checkBox').value.toString()}'
         where id = '${form?.control('id').value}' 
         ''');
 
