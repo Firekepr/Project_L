@@ -1,16 +1,11 @@
-# project_l
+Projec_List!
 
-A new Flutter project.
+Small project in flutter using the libraries:
+<br> 
+<br> -sqflite : ^2.0.2
+<br> -path_provider:^2.0.11
+<br> -reactive_forms: ^12.0.0
 
-## Getting Started
+![image](https://user-images.githubusercontent.com/93929735/184044553-ace4a2f3-96af-43da-b84e-1ddc10bab25a.png)
+![image](https://user-images.githubusercontent.com/93929735/184044652-f22f4a1b-eb96-4155-8649-9773a7552787.png)
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
