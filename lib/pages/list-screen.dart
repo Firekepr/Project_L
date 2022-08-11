@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:project_l/database/list.database.dart';
 import 'package:project_l/interface/List-interface.dart';
-import 'package:project_l/pages/list-app-bar.dart';
 import 'package:project_l/utils/Styles/project-styles.dart';
+import 'package:project_l/utils/Widgets/projectl-bottom-sheet.dart';
+import 'package:project_l/utils/Widgets/projectl-app-bar.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
-import 'bottom-sheet.dart';
-import 'list-edit-bottom-sheet.dart';
-import 'list-form.dart';
+import '../utils/Widgets/projectl-edit-modal.dart';
+import 'components/list-form.dart';
 
 class ListScreen extends StatefulWidget {
   const ListScreen({Key? key, required this.title}) : super(key: key);
@@ -23,7 +22,7 @@ class _ListScreenState extends State<ListScreen> {
   final textController = TextEditingController();
   final FormGroup _form = FormGroup({
     'id': FormControl<int>(),
-    'title': FormControl<String>(),
+    'title':  FormControl<String>(validators: [Validators.required]),
     'content': FormControl<String>(),
     'checkBox': FormControl<String>(),
   });
@@ -31,10 +30,10 @@ class _ListScreenState extends State<ListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const ListAppBar(
+      appBar: const ProjectLAppBar(
         preferredSize: Size.fromHeight(60),
       ),
-      backgroundColor: ProjectStyles.scaffoldColor,
+      backgroundColor: ProjectLStyles.scaffoldColor,
       body: FutureBuilder<List<ListInterface>>(
           future: ListDataBase.instance.getListValues(),
           builder: (BuildContext context, AsyncSnapshot<List<ListInterface>> snapshot) {
@@ -53,15 +52,15 @@ class _ListScreenState extends State<ListScreen> {
                         item: snapshot.data![index],
                         updateCheckBox: (value) => _updateCheckBox(value, snapshot.data![index]),
                         viewInformation: () => _viewMoreInformation(snapshot.data![index]),
-                        deleteItem: () => _onDelete(snapshot.data![index]),
+                        deleteItem: () => _deleteItem(snapshot.data![index]),
                       );
                     })
                 : Container();
           }),
 
-      bottomSheet: ListBottomSheet(
+      bottomSheet: ProjectLBottomSheet(
         controller: textController,
-        addItem: _addTitleToList,
+        addItem: _addItem,
       ),
     );
   }
@@ -79,19 +78,9 @@ class _ListScreenState extends State<ListScreen> {
             form: _form,
           );
         });
-    return showBarModalBottomSheet(
-        bounce: true,
-        expand: true,
-        context: context,
-        builder: (BuildContext context) {
-          return ItemInfo(
-            editItem: () => _editItem(_form, context),
-            form: _form,
-          );
-        });
   }
 
-  Future<void> _addTitleToList() async {
+  Future<void> _addItem() async {
     if (textController.text.isNotEmpty) {
       await ListDataBase.instance.add(
         ListInterface(
@@ -122,7 +111,7 @@ class _ListScreenState extends State<ListScreen> {
     setState(() {});
   }
 
-  Future<void> _onDelete(ListInterface item) async {
+  Future<void> _deleteItem(ListInterface item) async {
     await ListDataBase.instance.onDelete(item.id);
     setState(() {});
   }

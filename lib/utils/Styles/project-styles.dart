@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class ProjectStyles {
+class ProjectLStyles {
 
   static TextStyle checkedItemTitle(bool isCheck) {
     return isCheck
@@ -13,6 +13,13 @@ class ProjectStyles {
         ? const TextStyle(color: Colors.white24, fontSize: 14.0)
         : const TextStyle(color: Colors.white, fontSize: 14.0);
   }
+
+  static TextStyle modalTitleStyles = const TextStyle(
+    color: Colors.white,
+    fontSize: 18.0,
+  );
+
+  static Color systemPrimaryColor = Colors.black38;
 
   static Color checkBoxColor = Colors.green;
 

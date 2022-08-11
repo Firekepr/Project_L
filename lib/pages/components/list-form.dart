@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project_l/interface/List-interface.dart';
 import 'package:project_l/utils/Styles/project-styles.dart';
-import 'package:reactive_forms/reactive_forms.dart';
-
-import '../utils/project-form-button.dart';
 
 class ListBlock extends StatelessWidget {
   final ListInterface item;
@@ -27,19 +24,20 @@ class ListBlock extends StatelessWidget {
         right: 8.0,
       ),
       child: Card(
-        elevation: 0,
-        color: ProjectStyles.listTileColor,
+        elevation: 3,
+        color: ProjectLStyles.listTileColor,
         child: Row(
           children: <Widget>[
             Checkbox(
                 shape: const CircleBorder(),
                 value: item.checkBox,
-                activeColor: ProjectStyles.checkBoxColor,
+                activeColor: ProjectLStyles.checkBoxColor,
                 side: MaterialStateBorderSide.resolveWith(
-                    (states) => const BorderSide(
-                          width: 1.0,
-                          color: Colors.white,
-                        )),
+                  (states) => const BorderSide(
+                    width: 1.0,
+                    color: Colors.white,
+                  ),
+                ),
                 onChanged: (value) async {
                   updateCheckBox(value);
                 }),
@@ -50,13 +48,12 @@ class ListBlock extends StatelessWidget {
                   children: [
                     Text(
                       item.title,
-                      style: ProjectStyles.checkedItemTitle(item.checkBox),
+                      style: ProjectLStyles.checkedItemTitle(item.checkBox),
                     ),
                     item.content!.isNotEmpty
                         ? Text(
                             item.content!,
-                            style:
-                                ProjectStyles.checkedItemContent(item.checkBox),
+                            style: ProjectLStyles.checkedItemContent(item.checkBox),
                           )
                         : Container(),
                   ],
@@ -88,49 +85,5 @@ class ListBlock extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  showAddPopUp(
-    BuildContext context,
-    TextEditingController controller,
-    FormGroup form,
-  ) {
-    return showModalBottomSheet(
-        context: context,
-        builder: (BuildContext context) {
-          return Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: ReactiveForm(
-              formGroup: form,
-              child: Container(
-                decoration: BoxDecoration(
-                  border: Border.all(),
-                ),
-                child: Column(
-                  children: [
-                    const Text(
-                      'Adicionando um novo item',
-                      style: TextStyle(fontSize: 18),
-                    ),
-                    const ProjectFormField(
-                      formControlName: 'title',
-                      label: 'Título',
-                      obscureText: false,
-                    ),
-                    const ProjectFormField(
-                      formControlName: 'content',
-                      label: 'Conteúdo',
-                      obscureText: false,
-                    ),
-                    TextButton(
-                      onPressed: () => Navigator.of(context).pop(true),
-                      child: const Text('Salvar'),
-                    )
-                  ],
-                ),
-              ),
-            ),
-          );
-        });
   }
 }

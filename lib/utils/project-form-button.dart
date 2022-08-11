@@ -92,8 +92,7 @@ class _ProjectFormFieldState extends State<ProjectFormField> {
                     ),
                     obscureText: _passwordVisibility,
                     decoration: InputDecoration(
-                      hintText:
-                          widget.insideLabel == true ? widget.label : null,
+                      hintText: widget.insideLabel == true ? widget.label : null,
                       border: InputBorder.none,
                       suffixIcon: !widget.obscureText
                           ? widget.suffixIcon

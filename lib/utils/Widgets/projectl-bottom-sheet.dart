@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:project_l/utils/Strings/project-strings.dart';
 
-class ListBottomSheet extends StatefulWidget {
+class ProjectLBottomSheet extends StatefulWidget {
   final Function addItem;
   final TextEditingController controller;
 
-  const ListBottomSheet({
+  const ProjectLBottomSheet({
     Key? key,
     required this.controller,
     required this.addItem,
   }) : super(key: key);
 
   @override
-  State<ListBottomSheet> createState() => _ListBottomSheetState();
+  State<ProjectLBottomSheet> createState() => _ProjectLBottomSheetState();
 }
 
-class _ListBottomSheetState extends State<ListBottomSheet> {
+class _ProjectLBottomSheetState extends State<ProjectLBottomSheet> {
   final textController = TextEditingController();
 
   @override
@@ -37,7 +38,7 @@ class _ListBottomSheetState extends State<ListBottomSheet> {
           color: Colors.black38,
         ),
         child: Padding(
-          padding: const EdgeInsets.only(left: 8.0),
+          padding: const EdgeInsets.only(left: 16.0),
           child: TextFormField(
             keyboardType: TextInputType.text,
             autofocus: false,
@@ -45,12 +46,10 @@ class _ListBottomSheetState extends State<ListBottomSheet> {
             maxLines: 5,
             minLines: 1,
             style: const TextStyle(color: Colors.white),
-            decoration: const InputDecoration(
-              fillColor: Colors.grey,
-              // filled: true,
+            decoration:  const InputDecoration(
               hintStyle: TextStyle(color: Colors.white),
               border: InputBorder.none,
-              hintText: 'Eu quero...',
+              hintText: ProjectLStrings.wish,
             ),
             controller: widget.controller,
           ),
